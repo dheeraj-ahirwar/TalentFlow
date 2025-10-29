@@ -1,10 +1,754 @@
-:root { --bg: #f6f8fb; --card: #fff; --accent: #0b74de }
-body{font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; background:var(--bg); margin:0;}
-.app-shell{max-width:1100px;margin:24px auto;padding:20px}
-.header{display:flex;align-items:center;justify-content:space-between}
-.card{background:var(--card);padding:12px;border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.06);}
-.button{background:var(--accent);color:#fff;padding:8px 12px;border-radius:6px;border:none;cursor:pointer}
-.small{font-size:0.9rem}
-.flex{display:flex}
-.space{gap:12px}
-.list{display:grid;gap:12px}
+:root{
+  --bg: #f6f8fb;
+  --card: #ffffff;
+  --accent: #0b74de;
+  --accent-600: #0960b8;
+  --muted: #6b7280;
+  --glass: rgba(255,255,255,0.6);
+  --shadow-sm: 0 2px 8px rgba(11, 22, 40, 0.06);
+  --shadow-md: 0 8px 24px rgba(11, 22, 40, 0.08);
+  --radius: 12px;
+  --max-width: 1100px;
+}
+
+/* Reset & base */
+* { box-sizing: border-box; }
+html,body,#root { height:100%; }
+body{
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(180deg, var(--bg) 0%, #eef3fb 100%);
+  margin:0;
+  color:#111827;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  padding:24px 16px;
+}
+
+/* App shell */
+.app-shell{
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header / Navbar */
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  margin-bottom:18px;
+}
+.brand{
+  display:flex;
+  gap:12px;
+  align-items:center;
+}
+.brand .logo{
+  width:44px;
+  height:44px;
+  border-radius:10px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-600));
+  box-shadow: 0 6px 18px rgba(11, 116, 222, 0.15);
+  display:grid;
+  place-items:center;
+  color:white;
+  font-weight:700;
+}
+.brand h1{
+  margin:0;
+  font-size:1.125rem;
+  letter-spacing:0.2px;
+}
+.brand span { color:var(--muted); font-weight:500; font-size:0.95rem; }
+
+/* Navigation */
+.nav{
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.nav a{
+  text-decoration:none;
+  padding:8px 12px;
+  border-radius:8px;
+  color:var(--muted);
+  font-weight:600;
+  transition: all 170ms ease;
+}
+.nav a:hover{
+  color:var(--accent);
+  transform:translateY(-2px);
+  background: rgba(11,116,222,0.06);
+}
+.nav a.active{
+  color:var(--accent);
+  background: linear-gradient(90deg, rgba(11,116,222,0.06), rgba(11, 116, 222, 0.03));
+  box-shadow: inset 0 -2px 0 rgba(11,116,222,0.08);
+}
+
+/* Layout helpers */
+.flex{display:flex;align-items:center;}
+.space{gap:12px;}
+.grid{display:grid;gap:16px;}
+.list{display:grid;gap:12px;}
+
+/* Card */
+.card{
+  background:var(--card);
+  padding:14px;
+  border-radius:var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  border: 1px solid rgba(15,23,42,0.03);
+}
+.card:hover{
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Card variants */
+.card-compact{ padding:10px; border-radius:10px; }
+.card-muted{ background:linear-gradient(180deg, #ffffff, #fbfcff); }
+
+/* Headings & text */
+.h1{ font-size:1.125rem; margin:0; font-weight:700; }
+.h2{ font-size:1rem; margin:0; font-weight:600; color:#0f172a; }
+.small{ font-size:0.9rem; color:var(--muted); }
+.muted{ color:var(--muted); }
+
+/* Buttons */
+.button{
+  background:var(--accent);
+  color:#fff;
+  padding:9px 14px;
+  border-radius:10px;
+  border:none;
+  cursor:pointer;
+  font-weight:700;
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  transition: transform 140ms ease, box-shadow 140ms ease, opacity 140ms;
+  box-shadow: 0 6px 18px rgba(11, 116, 222, 0.12);
+}
+.button:hover{ transform: translateY(-3px); }
+.button:active{ transform: translateY(-1px); }
+.button.secondary{
+  background:transparent;
+  color:var(--accent-600);
+  border:1px solid rgba(11,116,222,0.12);
+  box-shadow:none;
+  font-weight:600;
+}
+
+/* Input / search */
+.input{
+  padding:10px 12px;
+  border-radius:10px;
+  border:1px solid rgba(15,23,42,0.06);
+  background: white;
+  min-width:220px;
+  outline:none;
+  transition: box-shadow 160ms ease, border-color 160ms;
+}
+.input:focus{
+  box-shadow: 0 6px 18px rgba(11,116,222,0.08);
+  border-color: var(--accent-600);
+}
+
+/* List / items */
+.item-row{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+}
+.item-meta{ color:var(--muted); font-size:0.95rem; }
+
+/* Table-ish */
+.table{
+  width:100%;
+  border-collapse:collapse;
+}
+.table th, .table td{
+  text-align:left;
+  padding:10px 12px;
+  border-bottom: 1px solid rgba(15,23,42,0.04);
+}
+.table th{ color:var(--muted); font-weight:600; font-size:0.9rem; }
+
+/* Pills and tags */
+.tag{
+  display:inline-block;
+  padding:6px 8px;
+  border-radius:999px;
+  background:rgba(11,116,222,0.08);
+  color:var(--accent-600);
+  font-weight:600;
+  font-size:0.85rem;
+}
+
+/* Empty / placeholder */
+.empty{
+  text-align:center;
+  padding:36px;
+  color:var(--muted);
+  border-radius:10px;
+  background:linear-gradient(180deg, rgba(15,23,42,0.01), rgba(15,23,42,0.005));
+}
+
+/* Footer */
+.footer{
+  margin-top:20px;
+  text-align:center;
+  color:var(--muted);
+  font-size:0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 880px){
+  .header{ flex-direction:column; align-items:flex-start; gap:12px; }
+  .nav{ width:100%; justify-content:flex-start; flex-wrap:wrap; }
+  .app-shell{ padding:12px; }
+  .brand h1{ font-size:1rem; }
+}
+
+/* Utility */
+.text-right{ text-align:right; }
+.mt-1{ margin-top:8px; }
+.mt-2{ margin-top:14px; }
+.mb-1{ margin-bottom:8px; }
+.p-2{ padding:12px; }
+.rounded-sm{ border-radius:8px; }
+
+/* ==== Assessment Page Styling ==== */
+.assessments-page {
+  padding: 20px;
+}
+
+.page-title {
+  margin-bottom: 4px;
+  color: #0b74de;
+  font-weight: 600;
+}
+
+.assessment-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.assessment-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.card-header h4 {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.empty {
+  color: #666;
+}
+
+.muted {
+  color: #777;
+}
+
+.mt-1 {
+  margin-top: 6px;
+}
+
+.mt-2 {
+  margin-top: 12px;
+}
+/* ==== Candidate Card Styling ==== */
+.candidate-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.stage-badge {
+  min-width: 80px;
+  text-align: center;
+}
+
+.muted {
+  color: #666;
+}
+/* Candidate detail specific */
+.tag { margin-right: 6px; }
+.assessments-page .card { /* keep previous behavior */ }
+
+@media (max-width: 880px) {
+  /* make columns stack on mobile */
+  .candidate-detail-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+/* Candidates page helpers */
+.search-input {
+  min-width: 220px;
+  padding: 10px 12px;
+}
+
+.list-card { padding: 14px; }
+.kanban-card { padding: 14px; }
+
+/* Row wrapper for react-window items — preserves spacing inside virtualization */
+.list-row {
+  padding: 8px 0;
+  height: 80px; /* must match itemSize */
+}
+
+/* adjust CandidateCard to fit list row */
+.candidate-card { height: 100%; display: flex; align-items: center; }
+
+/* small responsive tweaks */
+@media (max-width: 880px) {
+  .list-card, .kanban-card { width: 100%; }
+  .list-row { height: 92px; }
+}
+.job-form {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  background: var(--card);
+}
+
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: border 0.2s, box-shadow 0.2s;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(11, 116, 222, 0.15);
+  outline: none;
+}
+
+.input.error {
+  border-color: #dc2626;
+  background: #fff5f5;
+}
+
+.error-text {
+  font-size: 0.85rem;
+  color: #dc2626;
+  margin-top: 4px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.button-secondary {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+.button-secondary:hover {
+  background: #d1d5db;
+}
+/* JobList / Drag styles */
+.job-card {
+  padding: 12px 14px;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  align-items: center;
+}
+
+.job-card.dragging {
+  transform: rotate(-1deg) scale(1.02);
+  box-shadow: 0 10px 30px rgba(2,6,23,0.12);
+}
+
+/* drag handle */
+.drag-handle {
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: rgba(15,23,42,0.03);
+  border: 1px solid rgba(15,23,42,0.02);
+  margin-right: 6px;
+}
+
+/* small visual tweak for tag list inside job card */
+.job-card .small {
+  color: #6b7280;
+}
+
+/* maintain consistent spacing inside the list */
+.list > .card { margin-bottom: 10px; }
+
+/* responsive */
+@media (max-width: 880px) {
+  .job-card { flex-direction: column; align-items: stretch; gap: 8px; }
+  .drag-handle { margin-right: 0; justify-self: start; }
+}
+/* Kanban board layout */
+.kanban-container { width: 100%; overflow-x: auto; padding-bottom: 8px; }
+.kanban-row {
+  display: flex;
+  gap: 12px;
+  padding: 12px 4px;
+}
+
+/* Column */
+.kanban-column {
+  background: linear-gradient(180deg, rgba(255,255,255,0.9), rgba(250,250,255,0.95));
+  border-radius: 12px;
+  padding: 8px;
+  box-shadow: 0 6px 18px rgba(12,18,30,0.06);
+  border: 1px solid rgba(15,23,42,0.04);
+}
+
+/* Header */
+.kanban-column-header {
+  padding: 10px 12px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+.kanban-title { display:flex; gap:10px; align-items:center; }
+.kanban-stage-dot { width:12px; height:12px; border-radius:50%; box-shadow: 0 4px 10px rgba(0,0,0,0.04); }
+.kanban-stage-label { font-weight:700; font-size:0.98rem; }
+.kanban-stage-count { font-size:0.85rem; color:#6b7280; }
+
+/* Droppable area */
+.kanban-droppable {
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding: 8px;
+  min-height: 80px;
+  transition: background 160ms ease;
+  border-radius: 8px;
+}
+.kanban-droppable.drag-over {
+  background: linear-gradient(180deg, rgba(11,116,222,0.03), rgba(11,116,222,0.01));
+}
+
+/* Card */
+.kanban-card {
+  display:flex;
+  gap:12px;
+  align-items:center;
+  padding:10px;
+  border-radius:10px;
+  background:linear-gradient(180deg, #ffffff, #fbfdff);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.04);
+  border: 1px solid rgba(15,23,42,0.04);
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+.kanban-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(2,8,23,0.08); }
+.kanban-card.is-dragging {
+  transform: scale(1.02);
+  box-shadow: 0 18px 46px rgba(2,8,23,0.14);
+}
+
+/* Card parts */
+.card-left { display:flex; align-items:center; }
+.avatar {
+  width:48px; height:48px; border-radius:10px; display:grid; place-items:center;
+  font-weight:700; font-size:1rem; background:#eef2ff;
+  box-shadow: 0 6px 18px rgba(11,116,222,0.06);
+}
+.card-main { flex:1; min-width: 0; }
+.card-title { font-weight:700; font-size:0.98rem; color:#0f172a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.card-sub { color:#6b7280; font-size:0.85rem; margin-top:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+
+/* Right */
+.card-right { display:flex; align-items:center; gap:8px; }
+.stage-pill {
+  padding:6px 8px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:0.78rem;
+  border:1px solid rgba(0,0,0,0.04);
+}
+
+/* Empty placeholder */
+.kanban-empty { padding: 16px; text-align:center; border-radius:8px; background:linear-gradient(180deg, rgba(250,250,250,0.6), rgba(255,255,255,0.4)); }
+
+/* small responsive tweaks */
+@media (max-width: 880px) {
+  .kanban-row { gap: 8px; padding: 8px; }
+  .kanban-column { min-width: 220px; }
+  .avatar { width:40px; height:40px; }
+}
+/* AssessmentBuilder specific */
+.assessment-builder { margin-top: 8px; }
+
+/* Builder card */
+.builder-card {
+  background: linear-gradient(180deg,#ffffff,#fbfdff);
+  border-left: 6px solid #0b74de;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 10px 26px rgba(11,116,222,0.06);
+}
+
+/* Section card */
+.section-card {
+  padding: 12px;
+  border-radius: 10px;
+  border-left: 4px solid rgba(11,116,222,0.12);
+  background: linear-gradient(180deg,#fff,#fbfcff);
+}
+
+/* Preview */
+.preview-card {
+  padding: 12px;
+  border-radius: 10px;
+  border-left: 6px solid #10b981;
+  background: linear-gradient(180deg,#fff,#f7fffa);
+  box-shadow: 0 8px 20px rgba(16,185,129,0.04);
+}
+
+/* Question row */
+.question-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(15,23,42,0.04);
+}
+
+/* Buttons */
+.button.accent {
+  background: linear-gradient(90deg,#0b74de,#0960b8);
+  box-shadow: 0 8px 20px rgba(11,116,222,0.12);
+  color: #fff;
+}
+.button.secondary {
+  background: #eef2f7;
+  color: #0b1220;
+  border: 1px solid rgba(15,23,42,0.04);
+}
+
+/* Inputs */
+.input { padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(15,23,42,0.06); }
+.input:focus { box-shadow: 0 8px 20px rgba(11,116,222,0.06); border-color: #0b74de; outline: none; }
+
+/* Small helpers */
+.section-card + .section-card { margin-top: 10px; }
+.mt-2 { margin-top: 12px; }
+.mt-1 { margin-top: 8px; }
+
+/* Responsive */
+@media (max-width: 880px) {
+  .assessment-builder { grid-template-columns: 1fr !important; }
+  .builder-card, .preview-card { margin-bottom: 12px; }
+}
+/* AssessmentPreview form styles */
+.assessment-preview .preview-header { padding: 12px; border-left: 6px solid #0b74de; background: linear-gradient(180deg,#fff,#f4fbff); }
+.section-preview { padding: 12px; border-radius: 10px; border-left: 4px solid rgba(11,116,222,0.08); }
+.question-preview { padding: 10px; border-radius: 8px; background: #fff; border: 1px solid rgba(15,23,42,0.03); }
+
+.question-label { font-size: 0.98rem; font-weight: 700; color: #0f172a; }
+.choices { margin-top: 6px; }
+.choices-list { display: flex; flex-direction: column; gap: 8px; }
+
+/* Nice radio choices */
+.choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 140ms ease, transform 140ms ease;
+  border: 1px solid rgba(15,23,42,0.03);
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+}
+.choice input[type="radio"] {
+  width: 16px;
+  height: 16px;
+}
+.choice:hover { transform: translateY(-3px); background: rgba(11,116,222,0.03); }
+
+/* Choice text */
+.choice-text { font-weight: 600; color: #0f172a; }
+
+/* Input styles (reuse your existing .input but ensure spacing) */
+.assessment-preview .input { width: 100%; max-width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid rgba(15,23,42,0.06); }
+.assessment-preview .input:focus { box-shadow: 0 8px 20px rgba(11,116,222,0.06); border-color: #0b74de; outline: none; }
+
+/* Buttons */
+.assessment-preview .button.secondary { background: #eef2f7; color: #0b1220; border: 1px solid rgba(15,23,42,0.04); }
+
+/* Empty state */
+.assessment-preview .empty { padding: 12px; text-align: center; background: linear-gradient(180deg,#fff,#fbfcff); border-radius: 8px; }
+
+/* Responsive tweaks */
+@media (max-width: 880px) {
+  .assessment-preview .card { padding: 12px; }
+  .choices-list { gap: 6px; }
+}
+/* ===== Fixes for overlapping Kanban vs List ===== */
+
+/* layout container */
+.candidates-layout {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+/* LIST column: allow shrinking, keep on top visually */
+.candidates-list {
+  flex: 1 1 560px; /* grow, shrink, preferred width */
+  min-width: 0;    /* VERY important to allow shrink inside flex */
+  max-width: 760px;
+  position: relative;
+  z-index: 3;      /* appear above kanban if they ever overlap */
+}
+
+/* ensure list-card internals don't overflow and have solid background */
+.candidates-list .card,
+.candidates-list .list-row,
+.candidates-list .list-group,
+.candidates-list .list-group-item {
+  background: #ffffff;
+  min-width: 0;
+}
+
+/* KANBAN column: fixed flex-basis and local horizontal scrolling */
+.candidates-kanban {
+  flex: 0 0 520px; /* don't grow beyond this; change to taste */
+  min-width: 320px; /* allows smaller screens still usable */
+  max-width: 520px; /* prevents it from taking entire layout */
+  overflow: hidden; /* keep scroll internal */
+  position: relative;
+  z-index: 1;
+}
+
+/* The kanban's internal container handles horizontal scrolling only inside this box */
+.kanban-container {
+  width: 100%;
+  overflow-x: auto;  /* localized horizontal scrolling */
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+
+/* force each column to have a stable width inside kanban so it doesn't expand parent */
+.kanban-column {
+  flex: 0 0 240px;   /* fixed column width */
+  min-width: 220px;
+  max-width: 260px;
+}
+
+/* Keep virtualized list rows shrinkable inside flex */
+.list-row { min-width: 0; }
+
+/* A small safety: ensure cards have solid background so Kanban doesn't 'show through' */
+.card, .list-group-item {
+  background: #fff;
+}
+
+/* Responsive: stack on small screens */
+@media (max-width: 880px) {
+  .candidates-list, .candidates-kanban {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .candidates-kanban { order: 2; } /* show list first on mobile if you prefer */
+}
+/* JobList custom styles */
+.job-item {
+  background: linear-gradient(180deg, #ffffff, #fbfdff);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+  padding: 12px 16px;
+}
+.job-item:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(15, 23, 42, 0.06); }
+.job-item.dragging { transform: scale(1.02); box-shadow: 0 24px 60px rgba(2, 6, 23, 0.14); }
+
+/* drag handle */
+.drag-handle {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, rgba(15,23,42,0.03), rgba(15,23,42,0.01));
+  border: 1px solid rgba(15,23,42,0.03);
+  color: #6b7280;
+}
+
+/* avatar */
+.job-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ffd166, #f0932b);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  box-shadow: 0 8px 18px rgba(240, 146, 35, 0.12);
+}
+
+/* tags */
+.tag-badge {
+  background: linear-gradient(90deg,#ecfeff,#e6f7ff);
+  color: #0b74de;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  border: 1px solid rgba(11,116,222,0.08);
+}
+
+/* title */
+.job-title {
+  color: #0f172a;
+  display:block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* responsive tweaks */
+@media (max-width: 720px) {
+  .job-avatar { width: 40px; height: 40px; font-size: 0.9rem; }
+  .drag-handle { width: 32px; height: 32px; }
+}
+.text-gradient {
+  background: linear-gradient(90deg, #007bff, #00c6ff, #6f42c1, #ff6b6b);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 4s ease infinite;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
